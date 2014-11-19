@@ -1,0 +1,8 @@
+{
+  "name": "pu-video",
+  "description": "PracticeUpdate video player scripts and styles",
+  "main": "dist/pu-video.js",
+  "version": "0.0.0",
+  "dependencies": {}
+}
+
