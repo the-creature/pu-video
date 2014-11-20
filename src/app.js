@@ -1,4 +1,72 @@
-var PU = (function() {
+  function loadScript(url, callback){
+
+      var script = document.createElement("script")
+      script.type = "text/javascript";
+
+      if (script.readyState){  //IE
+          script.onreadystatechange = function(){
+              if (script.readyState == "loaded" ||
+                      script.readyState == "complete"){
+                  script.onreadystatechange = null;
+                  callback();
+              }
+          };
+      } else {  //Others
+          script.onload = function(){
+              callback();
+          };
+      }
+
+      script.src = url;
+      document.body.appendChild(script);
+  }
+
+
+  /*
+   * Req script in order to get player to work
+   * <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+   * <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
+   * <script src="assets/js/playlist/handlebars-v2.0.0.js"></script>
+   * First let check if they are already on page. if not. add them to the DOM
+   */       
+
+    /*
+    //check for jquery
+    try {
+        if(jQuery) {
+          //do nothing, is already on page
+        };
+    } catch(e) { 
+      //no jquery, let's add it
+      var j = document.createElement('script');      
+      j.type = 'text/javascript';
+      j.src = 'https://code.jquery.com/jquery-1.10.0.min.js';    
+      document.getElementsByTagName('head')[0].appendChild(j);
+    }  
+  */
+
+  //check for handlebars
+  try {
+      if(brightcove) {
+        //do nothing, is already on page
+      };
+  } catch(e) { 
+    //no handlebars, let's add it
+    loadScript("http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js", function(){ console.log('loaded'); });
+  }
+
+  //check for BrightcoveExperiences
+  try {
+      if(Handlebars) {
+        //do nothing, is already on page
+      };
+  } catch(e) { 
+    //no BrightcoveExperiences, let's add it
+    loadScript("http://admin.brightcove.com/js/BrightcoveExperiences.js", function(){ console.log('loaded') });
+  }
+
+
+  var PU = (function() {
   var player, APIModules, mediaEvent, videoPlayer, currentVideoIndex = 0;
   var playList;
   var ellipsis = "...";
@@ -6,7 +74,7 @@ var PU = (function() {
   var currentVideoIndexClick; 
   var click;
 
-  var addPlayer = function(videoID, playerKey, optional) {
+  var addPlayer = function(videoID, playerKey, optional, totalVideos) {
       console.log('create video with default video id ' + videoID);
       var playerData = {
           "playerKey": playerKey,
@@ -22,6 +90,8 @@ var PU = (function() {
 
       $(".video-player").html(playerHTML);
       brightcove.createExperiences();
+
+      $('.video-playlist').prepend('<p class="video-label">Current Video: <span class="j-current-view">0</span> out of <span class="j-total-videos">'+ totalVideos +'</span></p>');
   };
 
   loadVideo = function (click) {
@@ -98,7 +168,7 @@ var PU = (function() {
       });
 
       // create player with first video loaded
-      addPlayer(firstVideo, PLAYERKEY, false); 
+      addPlayer(firstVideo, PLAYERKEY, false, total); 
     },
     /**** template loaded event handler ****/
     onTemplateLoad : function (experienceID) {
@@ -141,80 +211,17 @@ var PU = (function() {
         JStoken =$('#video-attributes').data('token'),
         rest = "command=find_playlist_by_id&playlist_id="+playlistId+"&playlist_fields="+listFields+"&video_fields="+videoFields+"&media_delivery="+mediaDelivery+"&callback="+JScallback+"&token="+ JStoken,
         scriptSrc = path + rest;
-
-  /*
-   * Req script in order to get player to work
-   * <script language="JavaScript" type="text/javascript" src="http://admin.brightcove.com/js/BrightcoveExperiences.js"></script>
-   * <script src="assets/js/playlist/handlebars-v2.0.0.js"></script>
-   * <script src="assets/js/playlist/jquery.fitvids.js"></script>
-   * First let check if they are already on page. if not. add them to the DOM
-   */       
-    
-    //check for brightcove
-    try {
-        if(brightcove) {
-          //do nothing, is already on page
-        };
-    } catch(e) { 
-      //no brightcove, let's add it
-      var b = document.createElement('script');
-      b.src = 'http://admin.brightcove.com/js/BrightcoveExperiences.js';
-      var first = document.getElementsByTagName('script')[0];
-      first.parentNode.insertBefore(b, first);
-    }
+         
 
     //Add Video Styles
-    if(document.createStyleSheet) {
-      document.createStyleSheet('css/path');
-    } else {
-      var styles = "@import url('css/path');",
-          newSS = document.createElement('link');
-      
-      newSS.rel = 'stylesheet';
-      newSS.href = 'data:text/css,'+escape(styles);
-      document.getElementsByTagName("head")[0].appendChild(newSS);
-    }
+    var head = document.head, 
+        link = document.createElement('link')
+    link.type = 'text/css'
+    link.rel = 'stylesheet'
+    link.href = '../src/app.css'
+    head.appendChild(link);
 
-    //check for jquery
-    try {
-        if(jQuery) {
-          //do nothing, is already on page
-        };
-    } catch(e) { 
-      //no jquery, let's add it
-      var h = document.createElement('script');
-      h.src = 'http://code.jquery.com/jquery-migrate-1.2.1.min.js';
-      var first = document.getElementsByTagName('script')[0];
-      first.parentNode.insertBefore(h, first);
-    }  
-
-    //check for handlebars
-    try {
-        if(Handlebars) {
-          //do nothing, is already on page
-        };
-    } catch(e) { 
-      //no handlebars, let's add it
-      var h = document.createElement('script');
-      h.src = 'http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.amd.min.js';
-      var first = document.getElementsByTagName('script')[0];
-      first.parentNode.insertBefore(h, first);
-    }    
-
-    //check for fitVids
-    try {
-        if($.fn.fitVids()) {
-          //do nothing, is already on page
-        };
-    } catch(e) { 
-      //no fitVids, let's add it
-      var h = document.createElement('script');
-      h.src = 'http://cdnjs.cloudflare.com/ajax/libs/fitvids/1.1.0/jquery.fitvids.min.js';
-      var first = document.getElementsByTagName('script')[0];
-      first.parentNode.insertBefore(h, first);
-    }    
-
-    //Finally, let's load the actuall script.
+    //load the actuall video.
     script.src = scriptSrc;
     var head = document.getElementsByTagName("head")[0];
     head.appendChild(script);
