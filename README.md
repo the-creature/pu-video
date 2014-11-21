@@ -34,7 +34,7 @@ NOTE: Do not update/replace the **list_fields**, **video_fields** and **media_de
 
 ### Contribution guidelines ###
 
-* Code review by [http://www.practiceupdate.com/](PracticeUpdate) team
+* Code review by [PracticeUpdate](http://www.practiceupdate.com) team.
 
 ### Who do I talk to? ###
 
