@@ -30,11 +30,11 @@ Make sure to include the js include in this repo.
 
 For demo review the dir folder.
 
-NOTE: Do not update/replace the list_fields, video_fields and media_delivery.
+NOTE: Do not update/replace the **list_fields**, **video_fields** and **media_delivery**.
 
 ### Contribution guidelines ###
 
-* Code review by PracticeUpdate team
+* Code review by [http://www.practiceupdate.com/](PracticeUpdate) team
 
 ### Who do I talk to? ###
 
