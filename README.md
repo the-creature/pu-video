@@ -38,4 +38,4 @@ NOTE: Do not update/replace the **list_fields**, **video_fields** and **media_de
 
 ### Who do I talk to? ###
 
-Brad Strong
+[Brad Strong](https://bitbucket.org/bradstrong)
