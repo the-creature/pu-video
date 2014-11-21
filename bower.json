@@ -1,8 +1,11 @@
 {
-  "name": "pu-video",
-  "description": "PracticeUpdate video player scripts and styles",
-  "main": "dist/pu-video.js",
-  "version": "0.0.0",
-  "dependencies": {}
+  "name": "PracticeUpdate Video Player",
+  "version": "1.0.0",
+  "main": "dist/practiceupdate-video-player.js",
+  "dependencies": {
+    "git-test": "git@bitbucket.org:practiceupdate/pu-video.git"
+  },
+  "devDependencies": {
+    "grunt" : "*"
+  }
 }
-
