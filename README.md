@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-This repo will create a video-player with playlist. powered by BrightcoveExperiences
+This repo will create a video-player with playlist. powered by [Brightcove](http://support.brightcove.com/en/video-cloud/docs)
 
 ### How do I get set up? ###
 
