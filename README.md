@@ -21,7 +21,9 @@ To put the video in site, just add the following code inside the body - the foll
         data-list_fields="id,name,playListType,videos,videoIds,shortDescription" 
         data-video_fields="id,name,shortDescription,longDescription,linkURL,linkText,thumbnailURL" 
         data-media_delivery="default" 
-        data-player_key="{{player key}}">
+        data-player_key="{{player key}}"
+	data-account="2421677169001"
+	data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d">
 </div>
 ```
 
