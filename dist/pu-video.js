@@ -184,15 +184,19 @@ function initJQuery() {
                         rest = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
                         scriptSrc = path + rest;
 
-
                     //Add Video Styles
-                    var head = document.head,
-                        link = document.createElement('link')
-                    
-                    link.type = 'text/css'
-                    link.rel = 'stylesheet'
-                    link.href = 'http://pushare.s3.amazonaws.com/pu-video/latest/app.css'
-                    head.appendChild(link);
+                    //only if local var is empty
+
+                    //check if we got any css with value: 'pu-video.css'
+                    if (!$("link[href*='pu-video.css']").length && typeof PUVIDEO === 'undefined') {
+                        var head = document.head,
+                            link = document.createElement('link')
+                        
+                        link.type = 'text/css'
+                        link.rel = 'stylesheet'
+                        link.href = 'http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css'
+                        head.appendChild(link);
+                    }
 
                     //load the actuall video.
                     script.src = scriptSrc;
