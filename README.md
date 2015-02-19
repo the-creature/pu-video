@@ -12,7 +12,7 @@ This repo will create a video-player with playlist. powered by [Brightcove](http
 
 
 ### How to install via bower ###
-Make sure to have bower already installe globally or within your project. If you do not have it installed you can find instrcutions here: http://bower.io/#install-bower
+Make sure to have bower already installed globally or within your project. If you do not have it installed you can find instructions here: http://bower.io/#install-bower
 
 Install via bower with:
 ```
@@ -54,7 +54,7 @@ By default we use s3 hosted files.
 By defaul we are loading css from s3:
 http://pushare.s3.amazonaws.com/pu-video/latest/pu-video.css
 
-You can alsways overwtire it , or exclude it by doing one of the following:
+You can always overwrite it , or exclude it by doing one of the following:
 * Creating a gloabal variable call PUVIDEO. 
 * Including a pu-video.css stylesheet file 
 
@@ -81,7 +81,7 @@ The html markup is super simple and looks like this:
 </div>
 ```
 
-This can not be overwritten. Markup will be the same for all practiceupdate players
+This can not be overwritten. Markup will be the same for all PracticeUpdate players
 
 ### Definition of brightcove parameters? ###
 
