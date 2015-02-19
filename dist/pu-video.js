@@ -1,7 +1,6 @@
 var jQueryScriptOutputted = false;
 var PU;
 function loadScript(url, callback) {
-
     var script = document.createElement("script")
     script.type = "text/javascript";
 
@@ -24,7 +23,6 @@ function loadScript(url, callback) {
 }
 
 function initJQuery() {
-
     //if the jQuery object isn't available
     if (typeof(jQuery) == 'undefined') {
 
@@ -48,6 +46,9 @@ function initJQuery() {
 
                     var ACCOUNTID = $('#video-attributes').data('account');
                     var PLAYERID = $('#video-attributes').data('player');
+
+
+                    var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
 
                     var addPlayer = function (accountID, playerID, videoID, totalVideos) {
                         console.log('create video player with video id ' + videoID);
@@ -132,6 +133,8 @@ function initJQuery() {
                             playList = data;
                             console.log("playList returned");
 
+                            console.log(data);
+
                             var total = playList.videos.length;
 
                             $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player\"><div class=\"video-player\"></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
@@ -165,7 +168,14 @@ function initJQuery() {
                             });
 
                             // create player with first video loaded
-                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total)
+                            addPlayer(ACCOUNTID, PLAYERID, firstVideo, total);
+
+                            //alert('called')
+                        },
+                        
+                        setSingleVideos: function (data) {
+                            // create single player using HTML5 api
+                            $("#single-video-attributes").replaceWith('<video autoplay controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
                         }
                     }
                 })();
@@ -174,6 +184,7 @@ function initJQuery() {
                 // fetch playlist from video cloud rest api
                 (function () {
                     var script = document.createElement("script"),
+                        script2 = document.createElement("script"),
                         path = "http://api.brightcove.com/services/library?",
                         playlistId = $('#video-attributes').data('playlist_id'),
                         listFields = $('#video-attributes').data('list_fields'),
@@ -182,7 +193,16 @@ function initJQuery() {
                         JScallback = $('#video-attributes').data('callback'),
                         JStoken = $('#video-attributes').data('token'),
                         rest = "command=find_playlist_by_id&playlist_id=" + playlistId + "&playlist_fields=" + listFields + "&video_fields=" + videoFields + "&media_delivery=" + mediaDelivery + "&callback=" + JScallback + "&token=" + JStoken,
-                        scriptSrc = path + rest;
+                        scriptSrc = path + rest,
+
+
+                        singleVideoId = $('#single-video-attributes').data('video_id'),
+                        singleToken = $('#single-video-attributes').data('token'),
+                        singleVideoFields = $('#single-video-attributes').data('video_fields'),
+                        singleMediaDelivery = $('#single-video-attributes').data('media_delivery'),
+                        singleCallback = $('#single-video-attributes').data('callback'),
+                        singleVideoRest = "command=find_video_by_id&video_id="+ singleVideoId +"&video_fields="+singleVideoFields+"&media_delivery="+singleMediaDelivery+"&callback=" + singleCallback + "&token=" + singleToken,
+                        scriptSrcSingle = path + singleVideoRest;
 
                     //Add Video Styles
                     //only if local var is empty
@@ -199,11 +219,19 @@ function initJQuery() {
                     }
 
                     //load the actuall video.
-                    script.src = scriptSrc;
-                    var head = document.getElementsByTagName("head")[0];
-                    head.appendChild(script);
-                })();
+                    if( $('#video-attributes').length > 0 ) {
+                        script.src = scriptSrc;
+                        var head = document.getElementsByTagName("head")[0];
+                        head.appendChild(script);
+                    }
 
+                    //load single video
+                    if( $('#single-video-attributes').length > 0 ) {
+                        script2.src = scriptSrcSingle;
+                        var head = document.getElementsByTagName("head")[0];
+                        head.appendChild(script2);
+                    }
+                })();
             });
         }
     }
