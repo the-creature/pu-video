@@ -23,7 +23,7 @@ bower install git-pu-video
 
 To put the video in your site, just add the following code inside the body - the following element will later be replaced for the video player.:
 
-
+For Playlist:
 ```
 <div id="video-attributes" class="hide" 
     data-token="{{toke}}" 
@@ -38,13 +38,20 @@ To put the video in your site, just add the following code inside the body - the
 </div>
 ```
 
+For single player:
+```
+<div id="single-video-attributes" class="hide"
+  data-token="wOjLIZimzyxVTO_PUfLiy8yGM4k6VHXkpDaHPpYRahivuKgPorbErg.."
+  data-video_id="3899652909001"		
+  data-video_fields="name,length,FLVURL"
+  data-media_delivery="http"
+  data-callback="PU.setSingleVideos"
+></div>
+```
 
 Make sure to include the js include in this repo.
 
 For demo review the dir folder.
-
-NOTE: Do not update/replace the *list_fields*, *video_fields* and/or *media_delivery*.
-
 
 ### How to use it via s3 hosted files? ###
 By default we use s3 hosted files.
