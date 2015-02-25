@@ -1,7 +1,3 @@
-Image of player (single video)
-Image of player (playlist)
-
-
 # README #
 
 This README would normally document whatever steps are necessary to get your application up and running.
@@ -106,6 +102,12 @@ This player use nine parameters. Here is the list:
 
 They are self explanatory. However, if you wish to lear more about them checkout: 
 http://support.brightcove.com/en/video-cloud/docs/player-configuration-parameters
+
+### ScreenShots ###
+
+ https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/playlist.png - (single video)
+ https://raw.githubusercontent.com/PracticeUpdate/pu-video/master/dir/screenshots/single.png - (playlist)
+
 
 ### Contribution guidelines ###
 
