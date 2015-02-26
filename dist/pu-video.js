@@ -87,6 +87,11 @@ function initJQuery() {
                     };
 
                     loadVideo = function (click) {
+                        console.log('loadVideo')
+                        console.log(click)
+
+                        // $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
+
                         click != undefined ? currentVideoIndex = currentVideoIndexClick : '';
 
                         if (currentVideoIndex < playList.videos.length) {
@@ -124,7 +129,7 @@ function initJQuery() {
 
                     centerVideo = function () {
                         $('.BrightcoveExperience').css({
-                            "margin-top": ($('.load-player').height() - $('.BrightcoveExperience').height()) / 2 + "px"
+                           // "margin-top": ($('.load-player').height() - $('.BrightcoveExperience').height()) / 2 + "px"
                         });
                     };
 
@@ -135,9 +140,15 @@ function initJQuery() {
 
                             console.log(data);
 
-                            var total = playList.videos.length;
+                            var total = playList.videos.length,
+                                //this need to be dynamic - size may vary based on video
+                                w = playList.videos[0].videoFullLength.frameWidth,    //
+                                h = playList.videos[0].videoFullLength.frameHeight,   //
+                                ////////////////////////////////////////////////////////
+                                num = h/(w/100),
+                                paddingBottom = Math.round(num * 100) / 100;
 
-                            $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player\"><div class=\"video-player\"></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
+                            $("#video-attributes").replaceWith("<div class=\"pu-embed-video-brightcove load-player clearfix\"><div class=\"video-player\"></div><div class=\"video-playlist\"><span class=\"data-drop j-drop-data\"></span></div></div>");
 
                             // initialize playlist
                             for (var i = 0; i < total; i++) {
@@ -170,12 +181,18 @@ function initJQuery() {
                             // create player with first video loaded
                             addPlayer(ACCOUNTID, PLAYERID, firstVideo, total);
 
-                            //alert('called')
+                            $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
                         },
                         
                         setSingleVideos: function (data) {
                             // create single player using HTML5 api
+                            var w = data.videoFullLength.frameWidth,
+                                h = data.videoFullLength.frameHeight,
+                                num = h/(w/100),
+                                paddingBottom = Math.round(num * 100) / 100;
+
                             $("#single-video-attributes").replaceWith('<video autoplay controls><source src='+data.FLVURL+' type="video/mp4">Your browser does not support HTML5 video.</video>');
+                            $('.pu-embed-video-brightcove.load-player .video-player').css('padding-bottom', paddingBottom + '%');
                         }
                     }
                 })();
