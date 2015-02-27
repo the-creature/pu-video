@@ -4,19 +4,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-aws");
 
   grunt.initConfig({
-    aws: grunt.file.readJSON("credentials.json"),
+    aws: grunt.file.readJSON("aws-credentials.json"),
     s3: {
       options: {
         accessKeyId: "<%= aws.accessKeyId %>",
         secretAccessKey: "<%= aws.secretAccessKey %>",
-        bucket: "my-awesome-bucket"
+        bucket: "pu-video-bucket"
       },
       build: {
-        cwd: "build/",
+        cwd: "dist/",
         src: "**"
       }
     }
   });
-  
+
   grunt.registerTask("default", ["s3"]);
 };
