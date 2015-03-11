@@ -107,7 +107,7 @@ function initJQuery() {
 
                                 break;
                             case 'singleVideo':
-                                playerTemplate = '<video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video>';
+                                playerTemplate = '<div class="pu-embed-video-brightcove clearfix"><video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video></div>';
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
@@ -191,7 +191,6 @@ function initJQuery() {
                                 e.preventDefault();
                                 var $this = $(this),
                                     id = $this.data('id');
-
                                 currentVideoIndexClick = $this.data('index');
 
                                 loadVideo(currentVideoIndexClick);
