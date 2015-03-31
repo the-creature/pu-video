@@ -1,6 +1,7 @@
 var jQueryScriptOutputted = false;
 var PU = PU || {};
 var PUPLAYER;
+var SINGLEPUPLAYER;
 
 function loadScript(url, callback) {
     var script = document.createElement("script")
@@ -82,7 +83,17 @@ function initJQuery() {
                             });
                         } else {
                             if($('#pu_video').length === 0 && singleCalled === false) {
-                                $('#singleVideo-'+videoId+' .vjs-big-play-button').trigger('click');
+                                player = videojs("singleVideo-"+videoId);
+                                SINGLEPUPLAYER = videojs("singleVideo-"+videoId);
+
+                                SINGLEPUPLAYER.ready(function() {
+                                    player.catalog.getVideo(videoId, function (error, video) {
+                                        player.src(video.sources);
+                                        player.poster(video.poster);
+                                        player.play();
+                                    });
+                                });
+
                                 singleCalled = true;    
                             }                            
                         }
