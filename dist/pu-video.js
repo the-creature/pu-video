@@ -45,6 +45,7 @@ function initJQuery() {
                     var ellipsis = "...";
                     var currentVideoIndexClick;
                     var click;
+                    var singleCalled = false;
 
                     var ACCOUNTID = $('#video-attributes').data('account') || $('#global-video-attributes').data('account');
                     var PLAYERID = $('#video-attributes').data('player') || $('#global-video-attributes').data('player');
@@ -79,6 +80,11 @@ function initJQuery() {
                             PUPLAYER.on("ended", function () {
                                 loadVideo();
                             });
+                        } else {
+                            if($('#pu_video').length === 0 && singleCalled === false) {
+                                $('#singleVideo-'+videoId+' .vjs-big-play-button').trigger('click');
+                                singleCalled = true;    
+                            }                            
                         }
                     };
 
@@ -215,7 +221,6 @@ function initJQuery() {
 
                                 videoId = data.id,
                                 check =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play");
-
                             // create player with first video loaded
                             addPlayer(ACCOUNTID, PLAYERID, videoId, 0, 'singleVideo', paddingBottom);
                         }
