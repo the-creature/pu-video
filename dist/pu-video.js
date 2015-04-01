@@ -1,7 +1,6 @@
 var jQueryScriptOutputted = false;
 var PU = PU || {};
 var PUPLAYER;
-var SINGLEPUPLAYER;
 
 function loadScript(url, callback) {
     var script = document.createElement("script")
@@ -54,17 +53,17 @@ function initJQuery() {
 
                     var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
 
-                    var executeScript = function (accountID, playerID, totalVideos, videoId) {
+                    var executeScript = function (accountID, playerID, totalVideos, videoID) {
                         // add and execute the player script tag
                         var s = document.createElement("script");
                         s.src = "//players.brightcove.net/" + accountID + "/" + playerID + "_default/index.min.js";
                         document.body.appendChild(s);
                         s.onload = function () {
-                            onScriptReady(totalVideos, videoId)
+                            onScriptReady(totalVideos, videoID)
                         };
                     };
 
-                    onScriptReady = function(totalVideos, videoId) {
+                    onScriptReady = function(totalVideos, videoID) {
                         if(totalVideos !== 0) {
                             player = videojs("pu_video");
                             PUPLAYER = videojs("pu_video");
@@ -83,8 +82,8 @@ function initJQuery() {
                             });
                         } else {
                             if($('#pu_video').length === 0 && singleCalled === false) {
-                                player = videojs("singleVideo-"+videoId);
-                                SINGLEPUPLAYER = videojs("singleVideo-"+videoId);
+                                player = videojs("singleVideo-"+videoID);
+                                SINGLEPUPLAYER = videojs("singleVideo-"+videoID);
 
                                 SINGLEPUPLAYER.ready(function() {
                                     player.catalog.getVideo(videoId, function (error, video) {
@@ -124,14 +123,14 @@ function initJQuery() {
 
                                 break;
                             case 'singleVideo':
-                                playerTemplate = '<div class="pu-embed-video-brightcove clearfix"><video id="singleVideo-'+videoId+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video></div>';
+                                playerTemplate = '<div class="pu-embed-video-brightcove clearfix"><video id="singleVideo-'+videoID+'" data-account="{{accountID}}" data-player="{{playerID}}" data-video-id="{{videoID}}" data-embed="default" class="video-js" controls width="auto" height="auto"></video></div>';
                                 template = Handlebars.compile(playerTemplate);
                                 playerHTML = template(playerData);
 
 
-                                $(".single-video-attributes[data-video_id='"+videoId+"']").replaceWith(playerHTML);
+                                $(".single-video-attributes[data-video_id='"+videoID+"']").replaceWith(playerHTML);
 
-                                $("#singleVideo-"+videoId).css({
+                                $("#singleVideo-"+videoID).css({
                                     paddingBottom: paddingBottom + '%'
                                 });
                                 break;
@@ -139,7 +138,7 @@ function initJQuery() {
 
                         // add and execute the player script tag
                         setTimeout(function() {
-                            executeScript(accountID, playerID, totalVideos, videoId); 
+                            executeScript(accountID, playerID, totalVideos, videoID); 
                         }, 500);
                     };
 
@@ -230,10 +229,10 @@ function initJQuery() {
                                 num = h/(w/100),
                                 paddingBottom = Math.round(num * 100) / 100;
 
-                                videoId = data.id,
-                                check =  $(".single-video-attributes[data-video_id='"+videoId+"']").data("auto_play");
+                                videoID = data.id,
+                                check =  $(".single-video-attributes[data-video_id='"+videoID+"']").data("auto_play");
                             // create player with first video loaded
-                            addPlayer(ACCOUNTID, PLAYERID, videoId, 0, 'singleVideo', paddingBottom);
+                            addPlayer(ACCOUNTID, PLAYERID, videoID, 0, 'singleVideo', paddingBottom);
                         }
                     }
                 })();
