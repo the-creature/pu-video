@@ -48,8 +48,8 @@ function initJQuery() {
                     var click;
                     var singleCalled = false;
 
-                    var ACCOUNTID = $('#video-attributes').data('account') || $('#global-video-attributes').data('account');
-                    var PLAYERID = $('#video-attributes').data('player') || $('#global-video-attributes').data('player');
+                    var ACCOUNTID = $('#video-attributes').data('account') || $('.single-video-attributes').data('account');
+                    var PLAYERID = $('#video-attributes').data('player') || $('.single-video-attributes').data('player');
 
 
                     var SINGLEVIDEOID = $('#single-video-attributes').data('video_id');
