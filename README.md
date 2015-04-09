@@ -42,6 +42,8 @@ For single player:
 	  data-video_fields="name,length,FLVURL,VideoFullLength,id"
 	  data-media_delivery="http"
 	  data-callback="PU.video.setSingleVideos"
+	  data-account="2421677169001"
+	  data-player="f73313ad-8e1b-4817-b39f-35b3b974ec9d"
 	></div>	
 ></div>
 ```
